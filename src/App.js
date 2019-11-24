@@ -1,23 +1,20 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Login, OrderList } from "/";
 
-class App extends React.Component{
-  state = {
-    count: 0
-  };
-  add = () =>{
-    this.setState(current=>({count:current.count+1}))
-  };
-  minus = () =>{
-    this.setState(current=>({count:current.count-1}))
-  };
-  render(){
+class App extends React.Component {
+  render() {
     return (
-      <div>
-        <h1>The number is : {this.state.count}</h1>
-        <button onClick={this.add}>Add</button>
-        <button onClick={this.minus}>minus</button>
-      </div>
-    )
+      <Router>
+        <div>
+          <Link to="/Login"></Link>
+          <Link to="/OrderList"></Link>
+
+          <Route exact path="/Login" component={Login} />
+          <Route path="/OrderList" component={OrderList} />
+        </div>
+      </Router>
+    );
   }
 }
 
