@@ -7,8 +7,16 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Link to="/Login"></Link>
-          <Link to="/OrderList"></Link>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/Login">Login</Link>
+              </li>
+              <li>
+                <Link to="/OrderList">OrderList</Link>
+              </li>
+            </ul>
+          </nav>
 
           <Route exact path="/Login" component={Login} />
           <Route path="/OrderList" component={OrderList} />

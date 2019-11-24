@@ -1,0 +1,30 @@
+.main_bar {
+    flex-grow: 1
+}
+.menuButton {
+    text-align: left;
+    width: 5%;
+}
+.button {
+    text-align: center;
+    width: 6rem;
+    height: 2.2rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 1rem;
+    background-color:#e2937b;
+    border-color: #e2937b;
+    font-size: 15px;
+}
+.list_box_button {
+    text-align: center;
+}
+.delivery_button {
+    text-align: center;
+    font-size: 15px;
+    width: 8rem;
+    height: 2.2rem;
+    margin-bottom: 1rem;
+    background-color: #e2937b;
+    border-color: #e2937b;
+}
