@@ -4,6 +4,7 @@ import { useMutation } from 'react-apollo-hooks'
 
 import "../css/Login.css";
 import logo from '../image/logo.png';
+import { useInput } from '../useInput';
 
 // 쿼리 작성
 const SIGN_IN = gql`
@@ -13,10 +14,12 @@ const SIGN_IN = gql`
 `;
 
 const Login = () => {
+  const idInput = useInput("");
+  const pwdInput = useInput("");
   const signInMutation = useMutation(SIGN_IN, {
     variables: {
-      storeId: "",
-      pwd: ""
+      storeId: idInput.value,
+      pwd: pwdInput.value
     }
   })[0];
 
@@ -39,14 +42,21 @@ const Login = () => {
             placeholder="아이디"
             name="username"
             type="text"
+            {...idInput}
           />
           <input
             className="form-item"
             placeholder="비밀번호"
             name="password"
             type="password"
+            {...pwdInput}
           />
-          <input className="form-submit" value="로그인" type="submit" />
+          <input
+            className="form-submit"
+            value="로그인"
+            type="submit"
+            onClick={handlePressLogin}
+          />
         </form>
       </div>
     </div>
