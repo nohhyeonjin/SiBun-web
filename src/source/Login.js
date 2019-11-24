@@ -1,8 +1,33 @@
 import React from "react";
+import gql from 'graphql-tag';
+import { useMutation } from 'react-apollo-hooks'
+
 import "../css/Login.css";
 import logo from '../image/logo.png';
+import { useInput } from '../useInput';
+
+// 쿼리 작성
+const SIGN_IN = gql`
+  mutation storeSignIn($storeId: String! $pwd: String!) {
+    storeSignIn(storeId: $storeId pwd: $pwd)
+  }
+`;
 
 const Login = () => {
+  const idInput = useInput("");
+  const pwdInput = useInput("");
+  const signInMutation = useMutation(SIGN_IN, {
+    variables: {
+      storeId: idInput.value,
+      pwd: pwdInput.value
+    }
+  })[0];
+
+  const handlePressLogin = async () => { // 로그인 버튼 리스너
+    const { data: { storeSignIn } } = await signInMutation();
+    console.log(storeSignIn); // JWT 토큰
+  }
+
   return (
     <div className="header">
       <div className="main_bar">
@@ -17,14 +42,21 @@ const Login = () => {
             placeholder="아이디"
             name="username"
             type="text"
+            {...idInput}
           />
           <input
             className="form-item"
             placeholder="비밀번호"
             name="password"
             type="password"
+            {...pwdInput}
           />
-          <input className="form-submit" value="로그인" type="submit" />
+          <input
+            className="form-submit"
+            value="로그인"
+            type="submit"
+            onClick={handlePressLogin}
+          />
         </form>
       </div>
     </div>
