@@ -9,7 +9,7 @@ import { useInput } from '../useInput';
 import apolloClient from '../apollo';
 
 
-// 쿼리 작성
+// 쿼리 ?��?��
 const SIGN_IN = gql`
   mutation storeSignIn($storeId: String! $pwd: String!) {
     storeSignIn(storeId: $storeId pwd: $pwd)
@@ -19,16 +19,16 @@ const SIGN_IN = gql`
 const Login = () => {
   const idInput = useInput("");
   const pwdInput = useInput("");
-  const signInMutation = useMutation(SIGN_IN, { //여기서 터짐
+  const signInMutation = useMutation(SIGN_IN, { //?��기서 ?���?
     variables: {
       storeId: idInput.value,
       pwd: pwdInput.value
     }
   })[0];
 
-  const handlePressLogin = async () => { // 로그인 버튼 리스너
+  const handlePressLogin = async () => { // 로그?�� 버튼 리스?��
     const { data: { storeSignIn } } = await signInMutation();
-    console.log(storeSignIn); // JWT 토큰
+    console.log(storeSignIn); // JWT ?��?��
   }
 
   return (
@@ -39,25 +39,25 @@ const Login = () => {
       <img src={logo} alt="Logo" width="100px" height="auto"/>
 
       </div>
-        <p className="main_title">아이디와 비밀번호를 입력해주세요.</p>
+        <p className="main_title">?��?��?��??? 비�??번호�? ?��?��?��주세?��.</p>
         <form>
           <input
             className="form-item"
-            placeholder="아이디"
+            placeholder="?��?��?��"
             name="username"
             type="text"
-            {...idInput}
+            //{...idInput}
           />
           <input
             className="form-item"
-            placeholder="비밀번호"
+            placeholder="비�??번호"
             name="password"
             type="password"
             {...pwdInput}
           />
           <input
             className="form-submit"
-            value="로그인"
+            value="로그?��"
             type="submit"
             onClick={handlePressLogin}
           />
