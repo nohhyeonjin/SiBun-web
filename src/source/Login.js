@@ -4,6 +4,8 @@ import { useMutation } from "react-apollo-hooks";
 
 import "../css/Login.css";
 import logo from "../image/logo.png";
+import { runInContext } from "vm";
+import { exportDefaultSpecifier } from "@babel/types";
 
 // 쿼리 ?��?��
 const SIGN_IN = gql`
@@ -28,17 +30,31 @@ const Login = () => {
   const handlePressLogin = async () => {
     try{
       // 로그?�� 버튼 리스?��
-      const {
-       data: { storeSignIn } 
-      } = await signInMutation();
-      console.log(storeSignIn); // JWT ?��?��
+      if (id == '' || pwd == '') {
+        window.alert("아이디와 비밀번호를 모두 입력해주세요!");
+      } else {
+        const {
+          data: { storeSignIn } 
+         } = await signInMutation();
+         console.log(storeSignIn); // JWT ?��?��
+         if(storeSignIn != "SignIn Failed!!!"){
+           console.log("SignIn Success!!!");
+           window.location.assign('/OrderList'); //페이지 넘기기
+           //window.location.replace('/OrderList'); //페이지 넘기기
+         }
+         else{
+          window.alert("로그인이 실패하였습니다!");
+         }
+      }
     }catch(e){
       console.log(e);
     }
    };
   return (
-      loading?
-      <div>야아아아아아아</div>:
+     loading?
+      <div>
+         <img src={logo} alt="Logo" width="100px" height="auto" />
+      </div>:
       <div className="header">
         <div className="main_bar">
           <div className="logo">
@@ -71,8 +87,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-    );
-      
+    );     
 };
 
 export default Login;
