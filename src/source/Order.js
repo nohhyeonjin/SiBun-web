@@ -61,10 +61,6 @@ const ContentsDone = styled.div`
   overflow: hidden;
 `;
 
-const handleOrderReject = async () => {
-  
-}
-
 const handleOrderAccept = async () => {
   // try{
 
@@ -83,7 +79,7 @@ class Order extends Component {
   }
 
   render() {
-      if(this.props.state == 2){
+      if(this.props.chatRoom == 2){
         return (
           <Sizer>
           <Square>
@@ -101,7 +97,7 @@ class Order extends Component {
               <input
                     value="reject order"
                     type="submit"
-                    onClick={handleOrderReject}
+                    onClick={this.props.onRejectPress}
               />
               &nbsp; &nbsp;
               <input

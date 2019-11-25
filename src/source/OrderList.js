@@ -21,6 +21,12 @@ const OrderAcceptOrReject = gql`
   }
 `;
 
+const REMOVE_CHATROOM = gql`
+  mutation removeChatRoom($roomId: String!) {
+    removeChatRoom(roomId: $roomId)
+  }
+`;
+
 const GET_STORE_ORDER_LIST = gql`
   query getStoreOrderList($storeId: String!) {
     getStoreOrderList(storeId: $storeId){
@@ -71,11 +77,17 @@ const OrderList = () => {
  
   const [toggle, setToggle ] = useState(1);
 
-  var storeId = "ck2vmbfql6mqs0b00xo1n4hn4";
-
+  const StoreID = window.localStorage.getItem('id');
+  const RoomID = window.localStorage.getItem('roomId');
   const { data:  storeOrderList , loading } = useQuery(GET_STORE_ORDER_LIST, {
     variables: {
-      storeId
+      storeId : StoreID
+    }
+  });
+
+  const [removeChatRoomMutation] = useMutation(REMOVE_CHATROOM, {
+    variables: {
+      roomId: RoomID
     }
   });
 
@@ -112,16 +124,24 @@ const OrderList = () => {
         { storeOrderList.getStoreOrderList.length === 0?
           <p>주문내역이 없습니다!</p>
           :
-        storeOrderList.getStoreOrderList.map(item =>(
-              <Order
+        storeOrderList.getStoreOrderList.map(item =>{
+          const onRejectPress = async() => {
+            window.localStorage.setItem('roomId',item.chatRoom.id);
+            try{
+              await removeChatRoomMutation();
+            }catch(e){
+              console.log(e);
+            }
+          };
+              return <Order
               key={item.id}
               location={item.address}
               menuList={item.menuList}
               price={item.totalPrice}
-              state={item.chatRoom.state}
-              roomId={item.chatRoom.id}
-              />
-          ))}
+              chatRoom={item.chatRoom.state}
+              onRejectPress={onRejectPress}
+              />;
+        })};
          
         </div>
       </div>
