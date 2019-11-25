@@ -34,7 +34,7 @@ const Login = () => {
     }
   });
 
-  const getStoreIdQuery = useQuery(GET_STORE_ID,{
+  const {data: storeId} = useQuery(GET_STORE_ID,{
     variables:{
       id
     }
@@ -51,9 +51,8 @@ const Login = () => {
          } = await signInMutation();
          // JWT ?��?��
          if(storeSignIn !== "SignIn Failed!!!" ){
-           const { data : { id } } = getStoreIdQuery;
-           window.alert(id);
-           //console.log(storeId);
+           //window.alert(id.id);
+           console.log(storeId.getStoreId.id);
            window.alert("로그인 성공!");
            window.location.assign('/OrderList'); //페이지 넘기기
            console.log(storeSignIn);
