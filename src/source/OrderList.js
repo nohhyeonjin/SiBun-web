@@ -62,6 +62,67 @@ const ContentsDone = styled.div`
   overflow: hidden;
 `;
 
+const handleOrderReject = async () => {
+  
+}
+
+const handleOrderAccept = async () => {
+
+}
+
+const handleNotifyDelivery = async () => {
+
+}
+
+
+function NewOrderInfo({location, menu, price}){
+  return(
+    <Sizer>
+      <Square>
+        <Contents>
+          <p>[address] {location}</p>
+          <p>[menu] {menu}</p>
+          <p>[price] {price}</p>
+        </Contents>
+        <div className="list_box_button">
+          <input
+                value="reject order"
+                type="submit"
+                onClick={handleOrderReject}
+          />
+          &nbsp; &nbsp;
+          <input
+                value="accept order"
+                type="submit"
+                onClick={handleOrderAccept}
+          />
+        </div>
+        </Square>
+        </Sizer>
+  );
+}
+
+function OrderInfo({location, menu, price}){
+  return(
+    <Sizer>
+      <Square>
+        <Contents>
+          <p>[address] {location}</p>
+          <p>[menu] {menu}</p>
+          <p>[price] {price}</p>
+        </Contents>
+        <div className="list_box_button">
+          <input
+                value="notify Delivery"
+                type="submit"
+                onClick={handleNotifyDelivery}
+          />
+        </div>
+        </Square>
+        </Sizer>
+  );
+}
+
 const OrderList = () => {
  
   const [toggle, setToggle ] = useState(1);
@@ -88,41 +149,14 @@ const OrderList = () => {
           </IconButton>
         </AppBar>
         <Drawer open={toggle === 0} >
-          <MenuItem onClick={handleDrawerToggle}>주문관리</MenuItem>
-          <MenuItem onClick={handleDrawerToggle}>매장관리</MenuItem>
+          <MenuItem onClick={handleDrawerToggle}>order management</MenuItem>
+          <MenuItem onClick={handleDrawerToggle}>store management</MenuItem>
         </Drawer>
         <div className="menu_list">
-          <Sizer>
-            <Square>
-              <Contents>
-                <p>[주소] 경북 구미시 대학로 61 오름관</p>
-                <p>[메뉴] 달콤바삭 치즈볼 3</p>
-                <p>[가격] 15000</p>
-              </Contents>
-              <div className="list_box_button">
-                <button className="button">주문거절</button>
-                <button className="button">주문승낙</button>
-              </div>
-              
-            </Square>
-          </Sizer>
-          <Sizer>
-            <SquareDone>
-            <ContentsDone>
-                <p>[주소] 경북 구미시 대학로 61 테크노관</p>
-                <p>[메뉴] 뿌링 치즈볼 1 {`\n\t `} 뿌링클 1</p>
-                <p>[가격] 23500</p>
-              </ContentsDone>
-              <div className="list_box_button">
-                <input
-                className="delivery_button"
-                value="배달알리기"
-                type="submit"
-                onClick={handleDrawerToggle}
-                />
-              </div>
-            </SquareDone>
-          </Sizer>
+         <NewOrderInfo></NewOrderInfo>
+         <NewOrderInfo></NewOrderInfo>
+         <NewOrderInfo></NewOrderInfo>
+         <OrderInfo></OrderInfo>
         </div>
       </div>
     );
