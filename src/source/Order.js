@@ -96,13 +96,14 @@ class Order extends Component {
       <Sizer>
       <Square>
         <Contents>
-          <p>[address] {this.props.location}</p>
-          <p>
+          <p>[address] <br/> {this.props.location}</p>
+          <p>[menu List]
+          <br/>
           {this.props.menuList.map(menu => {
-             return <text style={{ fontSize: 12 }}>[menu List]{menu.menu.name}&nbsp; {menu.quantity}개</text>
+             return <text style={{ fontSize: 16 }}>{menu.menu.name}&nbsp; {menu.quantity}개,&nbsp;</text>
            })}
           </p>
-          <p>[price] {this.props.price}</p>
+          <p>[price] <br/>{this.props.price}원</p>
         </Contents>
         <div className="list_box_button">
           <input
