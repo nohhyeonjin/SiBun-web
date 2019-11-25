@@ -1,11 +1,9 @@
-import React from "react";
-import { ApolloProvider } from "react-apollo";
+import React, { useState } from "react";
 import gql from "graphql-tag";
 import { useMutation } from "react-apollo-hooks";
 
 import "../css/Login.css";
 import logo from "../image/logo.png";
-import apolloClient from "../apollo";
 
 // 쿼리 ?��?��
 const SIGN_IN = gql`
@@ -15,23 +13,32 @@ const SIGN_IN = gql`
 `;
 
 const Login = () => {
-  const signInMutation = useMutation(SIGN_IN, {
+  const [ id, setID ] = useState("");
+  const [ pwd, setPWD ] = useState("");
+ 
+//var id="dsf";
+//var pwd="dddd";
+  const [signInMutation,{loading}] = useMutation(SIGN_IN, {
     variables: {
-      storeId: "",
-      pwd: ""
+      storeId: id,
+      pwd
     }
-  })[0];
+  });
 
   const handlePressLogin = async () => {
-    // 로그?�� 버튼 리스?��
-    const {
-      data: { storeSignIn }
-    } = await signInMutation();
-    console.log(storeSignIn); // JWT ?��?��
-  };
-
+    try{
+      // 로그?�� 버튼 리스?��
+      const {
+       data: { storeSignIn } 
+      } = await signInMutation();
+      console.log(storeSignIn); // JWT ?��?��
+    }catch(e){
+      console.log(e);
+    }
+   };
   return (
-    <ApolloProvider client={apolloClient}>
+      loading?
+      <div>야아아아아아아</div>:
       <div className="header">
         <div className="main_bar">
           <div className="logo">
@@ -44,12 +51,16 @@ const Login = () => {
               placeholder="아이디"
               name="username"
               type="text"
+              value={id}
+              onChange={(text)=>setID(text.target.value)}
             />
             <input
               className="form-item"
               placeholder="비밀번호"
               name="password"
               type="password"
+              value={pwd}
+              onChange={(text)=>setPWD(text.target.value)}
             />
             <input
               className="form-submit"
@@ -60,8 +71,8 @@ const Login = () => {
           </form>
         </div>
       </div>
-    </ApolloProvider>
-  );
+    );
+      
 };
 
 export default Login;
