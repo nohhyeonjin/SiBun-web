@@ -1,10 +1,13 @@
 import React from "react";
+import { ApolloProvider } from "react-apollo";
 import gql from 'graphql-tag';
 import { useMutation } from 'react-apollo-hooks'
 
 import "../css/Login.css";
 import logo from '../image/logo.png';
 import { useInput } from '../useInput';
+import apolloClient from '../apollo';
+
 
 // 쿼리 작성
 const SIGN_IN = gql`
@@ -16,7 +19,7 @@ const SIGN_IN = gql`
 const Login = () => {
   const idInput = useInput("");
   const pwdInput = useInput("");
-  const signInMutation = useMutation(SIGN_IN, {
+  const signInMutation = useMutation(SIGN_IN, { //여기서 터짐
     variables: {
       storeId: idInput.value,
       pwd: pwdInput.value
@@ -29,6 +32,7 @@ const Login = () => {
   }
 
   return (
+    <ApolloProvider client={apolloClient}>
     <div className="header">
       <div className="main_bar">
       <div className="logo">
@@ -60,6 +64,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+    </ApolloProvider>
   );
 };
 
