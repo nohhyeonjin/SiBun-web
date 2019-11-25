@@ -66,7 +66,11 @@ const handleOrderReject = async () => {
 }
 
 const handleOrderAccept = async () => {
+  // try{
 
+  // }catch(e){
+  //   console.log(e);
+  // }
 }
 
 const handleNotifyDelivery = async () => {
@@ -79,7 +83,7 @@ class Order extends Component {
   }
 
   render() {
-      if(this.props.chatRoom == 2){
+      if(this.props.state == 2){
         return (
           <Sizer>
           <Square>

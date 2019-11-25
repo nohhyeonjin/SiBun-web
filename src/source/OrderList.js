@@ -15,14 +15,9 @@ import Order from './Order';
 
 //graphQL queries
 const OrderAcceptOrReject = gql`
-  mutation updateRoomOrderState($roomOrderId: String!, $state: Int!) {
-    updateRoomOrderState(roomOrderId: $roomOrderId, state: $state)
-  }
-`;
+  mutation updateChatRoomState($roomOrderId: String!, $state: Int!) {
+    updateChatRoomState(roomId: $roomId, state: $state)
 
-const NotifyDelivery = gql`
-  mutation updateChatRoomState($roomId: String!) {
-    updateChatRoomState(roomId: $roomId)
   }
 `;
 
@@ -76,11 +71,11 @@ const OrderList = () => {
  
   const [toggle, setToggle ] = useState(1);
 
-  const  StoreID = window.localStorage.getItem('id');
+  var storeId = "ck2vmbfql6mqs0b00xo1n4hn4";
 
   const { data:  storeOrderList , loading } = useQuery(GET_STORE_ORDER_LIST, {
     variables: {
-      storeId : StoreID
+      storeId
     }
   });
 
@@ -118,13 +113,13 @@ const OrderList = () => {
           <p>주문내역이 없습니다!</p>
           :
         storeOrderList.getStoreOrderList.map(item =>(
-    
               <Order
               key={item.id}
               location={item.address}
               menuList={item.menuList}
               price={item.totalPrice}
-              chatRoom={item.chatRoom.state}
+              state={item.chatRoom.state}
+              roomId={item.chatRoom.id}
               />
           ))}
          
