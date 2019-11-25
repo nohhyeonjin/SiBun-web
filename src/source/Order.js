@@ -7,6 +7,15 @@ import MenuIcon from "@material-ui/icons/Menu";
 import styled from "styled-components";
 import '../css/OrderList.css'
 
+import gql from "graphql-tag";
+import { useMutation } from "react-apollo-hooks";
+
+const REMOVE_CHATROOM = gql`
+  mutation removeChatRoom($roomId: String!) {
+    removeChatRoom(roomId: $roomId)
+  }
+`;
+
 const Sizer = styled.div`
   display: inline-block;
   width: 20%;
@@ -73,73 +82,79 @@ const handleNotifyDelivery = async () => {
 
 }
 
-class Order extends Component {
-  constructor(props) {
-    super(props);
+const Order = (props) => {
+  const [removeChatRoomMutation] = useMutation(REMOVE_CHATROOM);
+
+  const handlePressReject = async () => {
+    try{
+      await removeChatRoomMutation({
+        variables: {
+          roomId: item.chatRoom.id
+        }
+      });
+    }catch(e){
+      console.log(e);
+    }
   }
 
-  render() {
-      if(this.props.chatRoom == 2){
-        return (
-          <Sizer>
-          <Square>
-            <Contents>
-              <p>[address] <br/> {this.props.location}</p>
-              <p>[menu List]
-              <br/>
-              {this.props.menuList.map(menu => {
-                 return <text style={{ fontSize: 16 }}>{menu.menu.name}&nbsp; {menu.quantity}개,&nbsp;</text>
-               })}
-              </p>
-              <p>[price] <br/>{this.props.price}원</p>
-            </Contents>
-            <div className="list_box_button">
-              <input
-                    value="reject order"
-                    type="submit"
-                    onClick={this.props.onRejectPress}
-              />
-              &nbsp; &nbsp;
-              <input
-                    value="accept order"
-                    type="submit"
-                    onClick={handleOrderAccept}
-              />
-            </div>
-            <br/>
-            </Square>
-            </Sizer>
-        );
-      }
-      else{
-        return (
-          <Sizer>
-          <Square>
-            <Contents>
-              <p>[address] <br/> {this.props.location}</p>
-              <p>[menu List]
-              <br/>
-              {this.props.menuList.map(menu => {
-                 return <text style={{ fontSize: 16 }}>{menu.menu.name}&nbsp; {menu.quantity}개,&nbsp;</text>
-               })}
-              </p>
-              <p>[price] <br/>{this.props.price}원</p>
-            </Contents>
-            <div className="list_box_button">
-              <input
-                    value="notify Delivery"
-                    type="submit"
-                    onClick={handleNotifyDelivery}
-              />
-            </div>
-            <br/>
-            </Square>
-            </Sizer>
-        );
-      }
-    }
-    
-  
+  if(props.chatRoom === 2){
+    return (
+      <Sizer>
+      <Square>
+        <Contents>
+          <p>[address] <br/> {props.location}</p>
+          <p>[menu List]
+          <br/>
+          {props.menuList.map(menu => {
+              return <text style={{ fontSize: 16 }}>{menu.menu.name}&nbsp; {menu.quantity}개,&nbsp;</text>
+            })}
+          </p>
+          <p>[price] <br/>{props.price}원</p>
+        </Contents>
+        <div className="list_box_button">
+          <input
+                value="reject order"
+                type="submit"
+                onClick={handlePressReject}
+          />
+          &nbsp; &nbsp;
+          <input
+                value="accept order"
+                type="submit"
+                onClick={handleOrderAccept}
+          />
+        </div>
+        <br/>
+        </Square>
+        </Sizer>
+    );
+  }
+  else{
+    return (
+      <Sizer>
+      <Square>
+        <Contents>
+          <p>[address] <br/> {props.location}</p>
+          <p>[menu List]
+          <br/>
+          {props.menuList.map(menu => {
+              return <text style={{ fontSize: 16 }}>{menu.menu.name}&nbsp; {menu.quantity}개,&nbsp;</text>
+            })}
+          </p>
+          <p>[price] <br/>{props.price}원</p>
+        </Contents>
+        <div className="list_box_button">
+          <input
+                value="notify Delivery"
+                type="submit"
+                onClick={handleNotifyDelivery}
+          />
+        </div>
+        <br/>
+        </Square>
+        </Sizer>
+    );
+  }
 }
 
 

@@ -8,19 +8,11 @@ import '../css/OrderList.css'
 import logo from "../image/logo.png";
 
 import gql from "graphql-tag";
-import { useMutation, useQuery } from "react-apollo-hooks";
+import { useQuery } from "react-apollo-hooks";
 import Order from './Order';
 
 
-
 //graphQL queries
-
-
-const REMOVE_CHATROOM = gql`
-  mutation removeChatRoom($roomId: String!) {
-    removeChatRoom(roomId: $roomId)
-  }
-`;
 
 const GET_STORE_ORDER_LIST = gql`
   query getStoreOrderList($storeId: String!) {
@@ -79,8 +71,6 @@ const OrderList = () => {
     }
   });
 
-  const [removeChatRoomMutation] = useMutation(REMOVE_CHATROOM);
-
   const handleDrawerToggle = async () => {
     if(toggle === 0)
     {
@@ -115,25 +105,13 @@ const OrderList = () => {
           <p>주문내역이 없습니다!</p>
           :
         storeOrderList.getStoreOrderList.map(item =>{
-          const onRejectPress = async() => {
-            try{
-              await removeChatRoomMutation({
-                variables: {
-                  roomId: item.chatRoom.id
-                }
-              });
-            }catch(e){
-              console.log(e);
-            }
-          };
-              return <Order
+          return <Order
               key={item.id}
               location={item.address}
               menuList={item.menuList}
               price={item.totalPrice}
               chatRoom={item.chatRoom.state}
-              onRejectPress={onRejectPress}
-              />;
+            />;
         })};
          
         </div>
