@@ -30,19 +30,19 @@ const Login = () => {
   const handlePressLogin = async () => {
     try{
       // 로그?�� 버튼 리스?��
-      if (id == '' || pwd == '') {
+      if (id === '' || pwd === '') {
         window.alert("아이디와 비밀번호를 모두 입력해주세요!");
       } else {
         const {
           data: { storeSignIn } 
          } = await signInMutation();
-         console.log(storeSignIn); // JWT ?��?��
-         if(storeSignIn != "SignIn Failed!!!"){
-           console.log("SignIn Success!!!");
+         // JWT ?��?��
+         if(storeSignIn !== "SignIn Failed!!!" ){
+          window.alert("로그인 성공!");
            window.location.assign('/OrderList'); //페이지 넘기기
+           console.log(storeSignIn);
            //window.location.replace('/OrderList'); //페이지 넘기기
-         }
-         else{
+         }else{
           window.alert("로그인이 실패하였습니다!");
          }
       }

@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useState, Component} from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Drawer from "@material-ui/core/Drawer";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -62,27 +62,19 @@ const ContentsDone = styled.div`
   overflow: hidden;
 `;
 
+const OrderList = () => {
+ 
+  const [toggle, setToggle ] = useState(1);
 
-class OrderList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      toggle: false
-    };
+  const handleDrawerToggle = async () => {
+    if(toggle.value === 0)
+    {
+      setToggle(1)
+    }else{
+      setToggle(0)
+    }
   }
-  handleDrawerToggle = () => this.setState({ toggle: !this.state.toggle });
-  static propTypes = {
-    // memo: ImmutablePropTypes.mapContains({
-    //     id: PropTypes.number,
-    //     title: PropTypes.string,
-    //     body: PropTypes.body
-    // }),
-    // onOpen: PropTypes.func
-  };
 
-  render() {
-
-    //const { title, body } = this.props.memo.toJS();
 
     return (
       <div className="root">
@@ -90,14 +82,14 @@ class OrderList extends Component {
           <IconButton
             className="menuButton"
             color="inherit"
-            onClick={this.handleDrawerToggle}
+            onClick={handleDrawerToggle}
           >
             <MenuIcon/>
           </IconButton>
         </AppBar>
-        <Drawer open={this.state.toggle}>
-          <MenuItem onClick={this.handleDrawerToggle}>주문관리</MenuItem>
-          <MenuItem onClick={this.handleDrawerToggle}>매장관리</MenuItem>
+        <Drawer open={toggle === 0} >
+          <MenuItem onClick={handleDrawerToggle}>주문관리</MenuItem>
+          <MenuItem onClick={handleDrawerToggle}>매장관리</MenuItem>
         </Drawer>
         <div className="menu_list">
           <Sizer>
@@ -122,7 +114,12 @@ class OrderList extends Component {
                 <p>[가격] 23500</p>
               </ContentsDone>
               <div className="list_box_button">
-                <button className="delivery_button">배달알리기</button>
+                <input
+                className="delivery_button"
+                value="배달알리기"
+                type="submit"
+                onClick={handleDrawerToggle}
+                />
               </div>
             </SquareDone>
           </Sizer>
@@ -130,7 +127,7 @@ class OrderList extends Component {
       </div>
     );
   }
-}
+
 
 
 export default OrderList;
