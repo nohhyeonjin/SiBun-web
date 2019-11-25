@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import gql from "graphql-tag";
-import { useMutation, useQuery } from "react-apollo-hooks";
+import { useMutation } from "react-apollo-hooks";
 
 import "../css/Login.css";
 import logo from "../image/logo.png";
@@ -14,19 +14,12 @@ const SIGN_IN = gql`
   }
 `;
 
-const GET_STORE_ID = gql`
-  query getStoreId($id: String!) {
-    getStoreId(id: $id){
-      id
-    }
-  }
-`;
-
-
 const Login = () => {
   const [ id, setID ] = useState("");
   const [ pwd, setPWD ] = useState("");
-
+ 
+//var id="dsf";
+//var pwd="dddd";
   const [signInMutation,{loading}] = useMutation(SIGN_IN, {
     variables: {
       storeId: id,
@@ -34,26 +27,18 @@ const Login = () => {
     }
   });
 
-  const {data: storeId} = useQuery(GET_STORE_ID,{
-    variables:{
-      id
-    }
-  });
-  
   const handlePressLogin = async () => {
     try{
       // 로그?�� 버튼 리스?��
       if (id === '' || pwd === '') {
         window.alert("아이디와 비밀번호를 모두 입력해주세요!");
       } else {
-        const { 
+        const {
           data: { storeSignIn } 
          } = await signInMutation();
          // JWT ?��?��
          if(storeSignIn !== "SignIn Failed!!!" ){
-           //window.alert(id.id);
-           console.log(storeId.getStoreId.id);
-           window.alert("로그인 성공!");
+          window.alert("로그인 성공!");
            window.location.assign('/OrderList'); //페이지 넘기기
            console.log(storeSignIn);
            //window.location.replace('/OrderList'); //페이지 넘기기
