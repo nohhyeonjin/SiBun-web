@@ -118,6 +118,7 @@ class Order extends Component {
                 onClick={handleOrderAccept}
           />
         </div>
+        <br/>
         </Square>
         </Sizer>
     );
