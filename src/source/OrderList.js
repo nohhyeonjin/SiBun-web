@@ -76,11 +76,11 @@ const OrderList = () => {
  
   const [toggle, setToggle ] = useState(1);
 
-  var storeId = "ck2vmbfql6mqs0b00xo1n4hn4";
+  const  StoreID = window.localStorage.getItem('id');
 
   const { data:  storeOrderList , loading } = useQuery(GET_STORE_ORDER_LIST, {
     variables: {
-      storeId
+      storeId : StoreID
     }
   });
 
