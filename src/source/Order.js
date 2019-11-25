@@ -89,7 +89,7 @@ const Order = (props) => {
     try{
       await removeChatRoomMutation({
         variables: {
-          roomId: item.chatRoom.id
+          roomId: props.roomId
         }
       });
     }catch(e){

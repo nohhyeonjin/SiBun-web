@@ -107,6 +107,7 @@ const OrderList = () => {
         storeOrderList.getStoreOrderList.map(item =>{
           return <Order
               key={item.id}
+              roomId={item.id}
               location={item.address}
               menuList={item.menuList}
               price={item.totalPrice}
