@@ -114,9 +114,9 @@ const OrderList = () => {
         {storeOrderList.getStoreOrderList.map(item =>(
               <Order
               key={item.id}
-              location={item.location}
+              location={item.address}
               menuList={item.menuList}
-              price={item.price}
+              price={item.totalPrice}
               />
           ))}
          
