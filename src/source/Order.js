@@ -70,20 +70,8 @@ const ContentsDone = styled.div`
   overflow: hidden;
 `;
 
-const handleOrderAccept = async () => {
-  // try{
-
-  // }catch(e){
-  //   console.log(e);
-  // }
-}
-
-const handleNotifyDelivery = async () => {
-
-}
-
 const Order = (props) => {
-  const [removeChatRoomMutation] = useMutation(REMOVE_CHATROOM);
+  const removeChatRoomMutation = useMutation(REMOVE_CHATROOM)[0];
 
   const handlePressReject = async () => {
     try{
@@ -95,6 +83,18 @@ const Order = (props) => {
     }catch(e){
       console.log(e);
     }
+  }
+
+  const handleOrderAccept = async () => {
+    // try{
+  
+    // }catch(e){
+    //   console.log(e);
+    // }
+  }
+  
+  const handleNotifyDelivery = async () => {
+  
   }
 
   if(props.chatRoom === 2){
