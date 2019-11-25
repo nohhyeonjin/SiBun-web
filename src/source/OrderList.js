@@ -73,18 +73,13 @@ const OrderList = () => {
   const [toggle, setToggle ] = useState(1);
 
   const StoreID = window.localStorage.getItem('id');
-  const RoomID = window.localStorage.getItem('roomId');
   const { data:  storeOrderList , loading } = useQuery(GET_STORE_ORDER_LIST, {
     variables: {
       storeId : StoreID
     }
   });
 
-  const [removeChatRoomMutation] = useMutation(REMOVE_CHATROOM, {
-    variables: {
-      roomId: RoomID
-    }
-  });
+  const [removeChatRoomMutation] = useMutation(REMOVE_CHATROOM);
 
   const handleDrawerToggle = async () => {
     if(toggle === 0)
@@ -121,9 +116,12 @@ const OrderList = () => {
           :
         storeOrderList.getStoreOrderList.map(item =>{
           const onRejectPress = async() => {
-            window.localStorage.setItem('roomId',item.chatRoom.id);
             try{
-              await removeChatRoomMutation();
+              await removeChatRoomMutation({
+                variables: {
+                  roomId: item.chatRoom.id
+                }
+              });
             }catch(e){
               console.log(e);
             }
