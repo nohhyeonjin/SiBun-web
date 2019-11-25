@@ -128,7 +128,7 @@ const OrderList = () => {
   const [toggle, setToggle ] = useState(1);
 
   const handleDrawerToggle = async () => {
-    if(toggle.value === 0)
+    if(toggle === 0)
     {
       setToggle(1)
     }else{
