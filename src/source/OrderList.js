@@ -38,6 +38,9 @@ const GET_STORE_ORDER_LIST = gql`
         quantity
       }
       totalPrice
+      chatRoom{
+        state
+      }
     }
   }
 `;
@@ -111,12 +114,17 @@ const OrderList = () => {
           <MenuItem onClick={handleDrawerToggle}>store management</MenuItem>
         </Drawer>
         <div className="menu_list">
-        {storeOrderList.getStoreOrderList.map(item =>(
+        { storeOrderList.getStoreOrderList.length === 0?
+          <p>주문내역이 없습니다!</p>
+          :
+        storeOrderList.getStoreOrderList.map(item =>(
+    
               <Order
               key={item.id}
               location={item.address}
               menuList={item.menuList}
               price={item.totalPrice}
+              chatRoom={item.chatRoom.state}
               />
           ))}
          

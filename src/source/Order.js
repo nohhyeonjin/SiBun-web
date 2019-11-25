@@ -79,50 +79,67 @@ class Order extends Component {
   }
 
   render() {
-    return (
-      // <View style={styles.container}>
-      //   <View style={{ marginLeft: 15 }}>
-      //     <Text>{this.props.user}</Text>
-      //   </View>
-      //   <View style={{ flex: 1, alignItems: 'center' }}>
-      //     {this.props.menus.map(menu => {
-      //       return <Text style={{ fontSize: 12 }}>{menu.menu.name} {menu.quantity}</Text>
-      //     })}
-      //   </View>
-      //   <View style={{ marginRight: 15 }}>
-      //     <Text>{this.state.price}</Text>
-      //   </View>
-      // </View>
-      <Sizer>
-      <Square>
-        <Contents>
-          <p>[address] <br/> {this.props.location}</p>
-          <p>[menu List]
-          <br/>
-          {this.props.menuList.map(menu => {
-             return <text style={{ fontSize: 16 }}>{menu.menu.name}&nbsp; {menu.quantity}개,&nbsp;</text>
-           })}
-          </p>
-          <p>[price] <br/>{this.props.price}원</p>
-        </Contents>
-        <div className="list_box_button">
-          <input
-                value="reject order"
-                type="submit"
-                onClick={handleOrderReject}
-          />
-          &nbsp; &nbsp;
-          <input
-                value="accept order"
-                type="submit"
-                onClick={handleOrderAccept}
-          />
-        </div>
-        <br/>
-        </Square>
-        </Sizer>
-    );
-  }
+      if(this.props.chatRoom == 2){
+        return (
+          <Sizer>
+          <Square>
+            <Contents>
+              <p>[address] <br/> {this.props.location}</p>
+              <p>[menu List]
+              <br/>
+              {this.props.menuList.map(menu => {
+                 return <text style={{ fontSize: 16 }}>{menu.menu.name}&nbsp; {menu.quantity}개,&nbsp;</text>
+               })}
+              </p>
+              <p>[price] <br/>{this.props.price}원</p>
+            </Contents>
+            <div className="list_box_button">
+              <input
+                    value="reject order"
+                    type="submit"
+                    onClick={handleOrderReject}
+              />
+              &nbsp; &nbsp;
+              <input
+                    value="accept order"
+                    type="submit"
+                    onClick={handleOrderAccept}
+              />
+            </div>
+            <br/>
+            </Square>
+            </Sizer>
+        );
+      }
+      else{
+        return (
+          <Sizer>
+          <Square>
+            <Contents>
+              <p>[address] <br/> {this.props.location}</p>
+              <p>[menu List]
+              <br/>
+              {this.props.menuList.map(menu => {
+                 return <text style={{ fontSize: 16 }}>{menu.menu.name}&nbsp; {menu.quantity}개,&nbsp;</text>
+               })}
+              </p>
+              <p>[price] <br/>{this.props.price}원</p>
+            </Contents>
+            <div className="list_box_button">
+              <input
+                    value="notify Delivery"
+                    type="submit"
+                    onClick={handleNotifyDelivery}
+              />
+            </div>
+            <br/>
+            </Square>
+            </Sizer>
+        );
+      }
+    }
+    
+  
 }
 
 
