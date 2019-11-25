@@ -14,12 +14,7 @@ import Order from './Order';
 
 
 //graphQL queries
-const OrderAcceptOrReject = gql`
-  mutation updateChatRoomState($roomOrderId: String!, $state: Int!) {
-    updateChatRoomState(roomId: $roomId, state: $state)
 
-  }
-`;
 
 const GET_STORE_ORDER_LIST = gql`
   query getStoreOrderList($storeId: String!) {
