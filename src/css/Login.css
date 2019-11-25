@@ -9,10 +9,12 @@
     align-items: center;
 }
 .main_bar {
+    position: absolute;
     background-color: #fff;
     border-radius: 15px;
     padding: 1.2rem;
-    
+    width: 20%;
+    height: auto;
 }
 .main_title {
     text-align: center;
@@ -35,11 +37,13 @@
     border-radius: 20rem;
     background-color: #eee;
     text-align: center;
+    align-self: center;
 }
 
 .form-submit{
     font-family: 'Raleway', sans-serif;
     height: 40px;
+    width: 16.5rem;
     color: #fff;
     background-color: #e2937b;
     border: 1px solid #e2937b;
@@ -48,6 +52,8 @@
     transition: 0.3s opacity ease;
     cursor: pointer;
     border-radius: 20rem;
+    text-align: center;
+    align-self: center;
 }
 .form-submit:hover{
    opacity: 0.6;
