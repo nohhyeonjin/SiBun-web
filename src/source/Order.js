@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import styled from "styled-components";
+import logo from "../image/logo.png";
 import '../css/OrderList.css'
 
 import gql from "graphql-tag";
@@ -12,7 +13,9 @@ import { useMutation } from "react-apollo-hooks";
 
 const REMOVE_CHATROOM = gql`
   mutation removeChatRoom($roomId: String!) {
-    removeChatRoom(roomId: $roomId)
+    removeChatRoom(roomId: $roomId){
+      id
+    }
   }
 `;
 
@@ -31,9 +34,7 @@ const Square = styled.div`
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
-  &:hover {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  }
+  
 `;
 const SquareDone = styled.div`
   padding-top: 100%;
@@ -43,17 +44,11 @@ const SquareDone = styled.div`
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
-  &:hover {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  }
+  
 `;
 // 실제 내용이 들어가는 부분입니다.
 const Contents = styled.div`
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  bottom: 1rem;
-  right: 1rem;
+
   /* 텍스트가 길어지면 새 줄 생성; 박스 밖의 것은 숨김 */
   white-space: pre-wrap;
   overflow: hidden;
@@ -71,7 +66,7 @@ const ContentsDone = styled.div`
 `;
 
 const Order = (props) => {
-  const removeChatRoomMutation = useMutation(REMOVE_CHATROOM)[0];
+  const [removeChatRoomMutation,{loading}] = useMutation(REMOVE_CHATROOM);
 
   const handlePressReject = async () => {
     try{
@@ -99,6 +94,10 @@ const Order = (props) => {
 
   if(props.chatRoom === 2){
     return (
+      loading?
+      <div>
+      <img src={logo} alt="Logo" width="100px" height="auto" />
+   </div>:
       <Sizer>
       <Square>
         <Contents>
