@@ -111,7 +111,7 @@ const OrderList = () => {
               location={item.address}
               menuList={item.menuList}
               price={item.totalPrice}
-              chatRoom={item.chatRoom.state}
+              chatRoom={1}
             />;
         })};
          
