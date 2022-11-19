@@ -24,7 +24,7 @@
     "react-image": "^2.2.1",
     "react-immutable-proptypes": "^2.1.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "5.0.1",
     "styled-components": "^4.4.1",
     "subscriptions-transport-ws": "^0.9.16"
   },
